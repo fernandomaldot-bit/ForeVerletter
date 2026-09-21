@@ -10,10 +10,10 @@
 // What protects your data is the rule set in firestore.rules.
 
 window.SLOW_LETTERS_FIREBASE = {
-  apiKey: "",
-  authDomain: "",
-  projectId: "",
-  storageBucket: "",
-  messagingSenderId: "",
-  appId: ""
+  apiKey: "AIzaSyBT0Hw7QMWXAr1NQC3CCHPV1WnMGbq9ft8",
+  authDomain: "foreverletter-21eb4.firebaseapp.com",
+  projectId: "foreverletter-21eb4",
+  storageBucket: "foreverletter-21eb4.firebasestorage.app",
+  messagingSenderId: "722919191126",
+  appId: "1:722919191126:web:cef1ac215e0087085a81f7"
 };
