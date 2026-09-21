@@ -16,5 +16,4 @@ window.SLOW_LETTERS_FIREBASE = {
   storageBucket: "foreverletter-21eb4.firebasestorage.app",
   messagingSenderId: "722919191126",
   appId: "1:722919191126:web:cef1ac215e0087085a81f7"
-  measurementId: "G-9SGXYX8DF1"
 };
