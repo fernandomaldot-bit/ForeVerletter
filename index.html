@@ -978,7 +978,7 @@ async function initCloud(){
     // Some networks (school/office firewalls, some antivirus "web shields", some VPNs and ad blockers) silently
     // block Firestore's normal streaming connection, which shows up as a write that hangs and then times out.
     // Auto-detecting long polling avoids that, at a small cost in latency, and falls back safely everywhere else.
-    CL.db = fs.initializeFirestore ? fs.initializeFirestore(a, {experimentalAutoDetectLongPolling:true, useFetchStreams:false}) : fs.getFirestore(a);
+    CL.db = fs.initializeFirestore ? fs.initializeFirestore(a, {experimentalForceLongPolling:true, useFetchStreams:false}) : fs.getFirestore(a);
     CL.state = 'ready';
     auth.onAuthStateChanged(CL.auth, onUser, err => console.error(err));
   } catch (e) {
