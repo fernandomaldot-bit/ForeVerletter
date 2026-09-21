@@ -1,0 +1,38 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // A letter can be read by anyone who has its link (the id is random and can't be guessed),
+    // but nobody can list or browse letters. Only the sender can create or delete their letter.
+    match /letters/{letterId} {
+      allow get: if true;
+      allow list: if false;
+      allow create: if request.auth != null
+        && request.resource.data.owner == request.auth.uid
+        && request.resource.data.tx is string
+        && request.resource.data.tx.size() < 1000000;
+      allow update: if false;
+      allow delete: if request.auth != null && resource.data.owner == request.auth.uid;
+
+      // Audio is stored in pieces next to the letter, with the same rules.
+      match /audio/{chunkId} {
+        allow get: if true;
+        allow list: if false;
+        allow create: if request.auth != null
+          && get(/databases/$(database)/documents/letters/$(letterId)).data.owner == request.auth.uid
+          && request.resource.data.d is string
+          && request.resource.data.d.size() < 900000;
+        allow update: if false;
+        allow delete: if request.auth != null
+          && get(/databases/$(database)/documents/letters/$(letterId)).data.owner == request.auth.uid;
+      }
+    }
+
+    // Each person's own Sent and Inbox boxes: only that signed-in person can read or change them.
+    match /users/{uid}/{box}/{entryId} {
+      allow read, write: if request.auth != null
+        && request.auth.uid == uid
+        && box in ['sent', 'inbox'];
+    }
+  }
+}
